@@ -187,14 +187,16 @@ try:
         _songDB.execute("UPDATE `config` SET `value` = '7' WHERE `key` = 'version'")
         _songDB.commit()
         _dbversion = 7
-    # (Insert future schema upgrades here - with ifs, not elifs, so we are
-    #  able to upgrade starting at *any* schema version we support
-    #  upgrading from, like so.)
+    ## Future schema upgrades go here.
+    ## Use IF not ELIF so we are able to upgrade starting at *any* schema
+    ## version. For example:
     #if _dbversion == 7:
     #  log.debug('Upgrading song cache schema version 7 to 8.')
     #  _songDB.execute(sql needed to do the update)
     #  _songDB.commit()
     #  _dbversion = 8
+
+    # If above failed, make new db.
     if _dbversion == _SCHEMA_VERSION:
         _mustReinitialize = False
     else:
@@ -202,6 +204,7 @@ try:
         log.debug('Song cache has incompatible schema version; forcing reinitialization.')
 except:
     _mustReinitialize = True
+
 if _mustReinitialize:
     log.debug('Initializing song cache.')
     # Clean out the database, then make our tables.
@@ -238,15 +241,15 @@ class SongInfo(object):
         except:
             pass
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("SongInfo class init (song.py): " + self.name)
 
-        self.logSections = Config.get("game", "log_sections")
+        self.logSections = Config.get("log", "log_sections")
 
-        self.logUneditedMidis = Config.get("log",   "log_unedited_midis")
+        self.logUneditedMidis = Config.get("log", "log_unedited_midis")
 
-        self.useUneditedMidis = Config.get("debug",   "use_unedited_midis")
+        self.useUneditedMidis = Config.get("debug", "use_unedited_midis")
         if self.useUneditedMidis == 1:    #auto
             if os.path.isfile(os.path.join(os.path.dirname(self.fileName), "notes-unedited.mid")):
                 notefile = "notes-unedited.mid"
@@ -733,7 +736,7 @@ class LibraryInfo(object):
 
         self.artist = None
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("LibraryInfo class init (song.py)...")
 
@@ -803,7 +806,7 @@ class LibraryInfo(object):
 class BlankSpaceInfo(object): #MFH
     def __init__(self, nameToDisplay = ""):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("BlankSpaceInfo class init (song.py)...")
 
@@ -818,7 +821,7 @@ class BlankSpaceInfo(object): #MFH
 class CareerResetterInfo(object): #MFH
     def __init__(self):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("CareerResetterInfo class init (song.py)...")
 
@@ -829,7 +832,7 @@ class CareerResetterInfo(object): #MFH
 
 class RandomSongInfo(object): #MFH
     def __init__(self):
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("RandomSongInfo class init (song.py)...")
 
@@ -844,7 +847,7 @@ class TitleInfo(object):
         self.info    = config
         self.section = section
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("TitleInfo class init (song.py)...")
 
@@ -886,7 +889,7 @@ class TitleInfo(object):
 class SortTitleInfo(object):
     def __init__(self, nameToDisplay):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("TitleInfo class init (song.py)...")
 
@@ -991,7 +994,7 @@ class Track:    #MFH - Changing Track class to a base class.  NoteTrack and Temp
         self.maxIndex = None   #MFH
 
         if engine is not None:
-            self.logClassInits = Config.get("game", "log_class_inits")
+            self.logClassInits = Config.get("log", "log_class_inits")
             if self.logClassInits == 1:
                 log.debug("Track class init (song.py)...")
 
@@ -1806,7 +1809,7 @@ class Song(object):
     def __init__(self, engine, infoFileName, songTrackNames, noteFileName, scriptFileName = None, partlist = [parts[GUITAR_PART]]):
         self.engine        = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("Song class init (song.py)...")
 
@@ -2123,7 +2126,7 @@ class ScriptReader:
         self.song = song
         self.file = scriptFile
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("ScriptReader class init (song.py)...")
 
@@ -2161,15 +2164,15 @@ class MidiReader(midi.MidiOutStream):
         self.useVocalTrack = False
         self.vocalOverlapCheck = []
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("MidiReader class init (song.py)...")
 
-        self.logMarkerNotes = Config.get("game", "log_marker_notes")
+        self.logMarkerNotes = Config.get("log", "log_marker_notes")
 
         self.logTempoEvents = Config.get("log",   "log_tempo_events")
 
-        self.logSections = Config.get("game", "log_sections")
+        self.logSections = Config.get("log", "log_sections")
 
         self.guitarSoloIndex = 0
         self.guitarSoloActive = False
@@ -2524,11 +2527,11 @@ class MidiSectionReader(midi.MidiOutStream):
         midi.MidiOutStream.__init__(self)
         self.difficulties = []
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("MidiSectionReader class init (song.py)...")
 
-        self.logSections = Config.get("game", "log_sections")
+        self.logSections = Config.get("log", "log_sections")
 
         #MFH: practice section support:
         self.ticksPerBeat = 480
@@ -2659,7 +2662,7 @@ class SongQueue:
         self.totalLibrary  = []
         self.scores = []
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("SongQueue class init (song.py)...")
 
@@ -2753,11 +2756,11 @@ class MidiPartsDiffReader(midi.MidiOutStream):
         self._ODNoteFound = False
         self._SPNoteFound = False
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("MidiPartsDiffReader class init (song.py)...")
 
-        self.logSections = Config.get("game", "log_sections")
+        self.logSections = Config.get("log", "log_sections")
 
     def getMidiStyle(self):
         if self._ODNoteFound:
@@ -2936,8 +2939,8 @@ def loadSong(engine, name, library = DEFAULT_LIBRARY, playbackOnly = False, note
             songFiles.pop('preview', None)
 
     if not playbackOnly:
-        logUneditedMidis = engine.config.get("log",   "log_unedited_midis")
-        useUneditedMidis = engine.config.get("debug",   "use_unedited_midis")
+        logUneditedMidis = engine.config.get("log", "log_unedited_midis")
+        useUneditedMidis = engine.config.get("debug", "use_unedited_midis")
         if useUneditedMidis == 1:    #auto
             noteFile   = engine.resource.fileName(library, name, "notes-unedited.mid", writable = True)
             if os.path.isfile(noteFile):
@@ -2992,7 +2995,7 @@ def getAvailableLibraries(engine, library = DEFAULT_LIBRARY):
 
             libraries.append(LibraryInfo(libName, os.path.join(libraryRoot, "library.ini")))
             continue # why were these here? we must filter out empty libraries - coolguy567
-                                #MFH - I'll tell you why -- so that empty ("tiered" / organizational) folders are displayed, granting access to songs in subfolders...
+                        #MFH - I'll tell you why -- so that empty ("tiered" / organizational) folders are displayed, granting access to songs in subfolders...
 
             dirs = os.listdir(libraryRoot)
             for name in dirs:

@@ -81,7 +81,7 @@ MusicFinished = pygame.USEREVENT
 class Input(Task):
     def __init__(self):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("Input class init (Input.py)...")
 

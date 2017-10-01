@@ -48,7 +48,7 @@ BASS_GROOVE_SCORE_MULTIPLIER = [0, 10, 20, 30, 40, 50]
 class ScoreCard(object):
     def __init__(self, instrument, coOpType = False):
         self.coOpType = coOpType
-        logClassInits = Config.get("game", "log_class_inits")
+        logClassInits = Config.get("log", "log_class_inits")
         if logClassInits == 1:
             log.debug("ScoreCard class init...")
         self.starScoring = Config.get("game", "star_scoring")

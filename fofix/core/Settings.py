@@ -52,7 +52,7 @@ class ConfigChoice(Menu.Choice):
         self.engine    = engine
         self.config    = config
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("ConfigChoice class init (Settings.py)...")
 
@@ -125,7 +125,7 @@ class ActiveConfigChoice(ConfigChoice):
         self.onChange = onChange
         self.volume   = volume
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("ActiveConfigChoice class init (Settings.py)...")
 
@@ -145,7 +145,7 @@ class VolumeConfigChoice(ConfigChoice):
         ConfigChoice.__init__(self, engine, config, section, option, autoApply)
         self.engine = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("VolumeConfigChoice class init (Settings.py)...")
 
@@ -160,7 +160,7 @@ class KeyConfigChoice(Menu.Choice):
     def __init__(self, engine, config, section, option, noneOK = False, shift = None):
         self.engine  = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("KeyConfigChoice class init (Settings.py)...")
 
@@ -302,7 +302,7 @@ class ControlChooser(Menu.Menu):
         self.options = options
         self.default = self.engine.config.get("game", "control0")
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("ControlChooser class init (Settings.py)...")
 
@@ -340,7 +340,7 @@ class ControlCreator(BackgroundLayer, KeyListener):
         self.engine  = engine
         self.control = control
         self.edit    = edit
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("ControlCreator class init (Settings.py)...")
 
@@ -627,7 +627,7 @@ class SettingsMenu(Menu.Menu):
     def __init__(self, engine):
 
         self.engine = engine
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("SettingsMenu class init (Settings.py)...")
 
@@ -875,28 +875,28 @@ class SettingsMenu(Menu.Menu):
 
         #MFH - new menu
         self.logfileSettings = [
-          ConfigChoice(engine, engine.config, "game", "log_class_inits", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "game", "log_loadings", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "game", "log_sections", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "game", "log_marker_notes", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "game", "log_starpower_misses", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "log",   "log_unedited_midis", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "log",   "log_lyric_events", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "log",   "log_tempo_events", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "log",   "log_image_not_found", autoApply = True),
+          ConfigChoice(engine, engine.config, "log", "log_class_inits", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_loadings", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_sections", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_marker_notes", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_starpower_misses", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_unedited_midis", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_lyric_events", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_tempo_events", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "log", "log_image_not_found", autoApply = True),
         ]
         self.logfileSettingsMenu = Menu.Menu(engine, self.logfileSettings, pos = (self.opt_text_x, self.opt_text_y), textColor = self.opt_text_color, selectedColor = self.opt_selected_color)
 
         self.debugSettings = [
           ConfigChoice(engine, engine.config, "video", "show_fps"),#evilynux
-          ConfigChoice(engine, engine.config, "game", "kill_debug", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "game", "hopo_debug_disp", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "game", "show_unused_text_events", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "debug",   "use_unedited_midis", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "game",  "kill_debug", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "game",  "hopo_debug_disp", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "game",  "show_unused_text_events", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "debug", "use_unedited_midis", autoApply = True),#myfingershurt
           ConfigChoice(engine, engine.config, "debug", "show_raw_vocal_data", autoApply = True), #akedrou
-          ConfigChoice(engine, engine.config, "debug",   "show_freestyle_active", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "debug",   "show_bpm", autoApply = True),#myfingershurt
-          ConfigChoice(engine, engine.config, "debug",   "use_new_vbpm_beta", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "debug", "show_freestyle_active", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "debug", "show_bpm", autoApply = True),#myfingershurt
+          ConfigChoice(engine, engine.config, "debug", "use_new_vbpm_beta", autoApply = True),#myfingershurt
         ]
         self.debugSettingsMenu = Menu.Menu(engine, self.debugSettings, pos = (self.opt_text_x, self.opt_text_y), textColor = self.opt_text_color, selectedColor = self.opt_selected_color)
 
@@ -1085,7 +1085,7 @@ class BasicSettingsMenu(Menu.Menu):
         self.keyActive = True
         self.confirmNeck = False
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("BasicSettingsMenu class init (Settings.py)...")
 
@@ -1488,7 +1488,7 @@ def quickset(config):
 class GameSettingsMenu(Menu.Menu):
     def __init__(self, engine, gTextColor, gSelectedColor, players):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("GameSettingsMenu class init (Settings.py)...")
 
@@ -1518,7 +1518,7 @@ class GameSettingsMenu(Menu.Menu):
 class GameCareerSettingsMenu(Menu.Menu):
     def __init__(self, engine, gTextColor, gSelectedColor, players):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("GameSettingsMenu class init (Settings.py)...")
         settings = [

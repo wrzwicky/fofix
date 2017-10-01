@@ -95,7 +95,7 @@ class Menu(Layer, KeyListener):
     def __init__(self, engine, choices, name = None, onClose = None, onCancel = None, pos = (.2, .31), viewSize = 6, fadeScreen = False, font = "font", mainMenu = None, textColor = None, selectedColor = None, append_submenu_char = True, selectedIndex = None, showTips = True, selectedBox = False):
         self.engine       = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("Menu class init (Menu.py)...")
 

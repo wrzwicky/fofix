@@ -156,7 +156,7 @@ class GetText(Layer, KeyListener):
         self.time = 0
         self.accepted = False
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("GetText class init (Dialogs.py)...")
 
@@ -291,7 +291,7 @@ class GetKey(Layer, KeyListener):
         self.escTimer  = 1000
         self.specialKeyList = specialKeyList
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("GetKey class init (Dialogs.py)...")
 
@@ -357,7 +357,7 @@ class LoadingScreen(Layer, KeyListener):
         self.allowCancel  = allowCancel
         self.time         = 0.0
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("LoadingScreen class init (Dialogs.py)...")
 
@@ -436,7 +436,7 @@ class MessageScreen(Layer, KeyListener):
         self.time = 0.0
         self.prompt = prompt
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("MessageScreen class init (Dialogs.py)...")
 
@@ -490,7 +490,7 @@ class FileChooser(BackgroundLayer, KeyListener):
         self.time           = 0.0
         self.menu           = None
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("FileChooser class init (Dialogs.py)...")
 
@@ -643,7 +643,7 @@ class NeckChooser(Layer, KeyListener):
         self.player   = player
         self.owner    = owner
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("%s NeckChooser class init (Dialogs.py)..." % (self.player))
 
@@ -896,7 +896,7 @@ class AvatarChooser(Layer, KeyListener):
     def __init__(self, engine):
         self.engine   = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("AvatarChooser class init (Dialogs.py)...")
 
@@ -1163,7 +1163,7 @@ class PartDiffChooser(MainDialog):
 
         self.gameModeText = self.engine.world.gameName
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("PartDiffChooser class init (Dialogs.py)...")
         self.time    = 0.0
@@ -1345,7 +1345,7 @@ class ItemChooser(BackgroundLayer, KeyListener):
         self.prompt         = prompt
         self.engine         = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("ItemChooser class init (Dialogs.py)...")
 
@@ -1426,7 +1426,7 @@ class KeyTester(Layer, KeyListener):
         self.prompt         = prompt
         self.engine         = engine
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("KeyTester class init (Dialogs.py)...")
 
@@ -2013,7 +2013,7 @@ class LoadingSplashScreen(Layer, KeyListener):
         self.lspacing = self.engine.theme.loadingLSpacing
         self.loadingImg = self.engine.data.loadingImage
 
-        self.logClassInits = self.engine.config.get("game", "log_class_inits")
+        self.logClassInits = self.engine.config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("LoadingSplashScreen class init (Dialogs.py)...")
 

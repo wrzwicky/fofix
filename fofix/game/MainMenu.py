@@ -47,7 +47,7 @@ class MainMenu(BackgroundLayer):
     def __init__(self, engine):
         self.engine              = engine
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("MainMenu class init (MainMenu.py)...")
 

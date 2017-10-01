@@ -202,7 +202,8 @@ class Main():
 
         self.engine = GameEngine(self.config)
 
-        self.init_oneshot()
+        if self.playing:
+            self.init_oneshot()
 
         self.videoLayer = False
         self.restartRequested = False
@@ -262,7 +263,7 @@ class Main():
             log.debug('Entering one-shot mode.')
             self.engine.cmdPlay = 1
 
-            #Config.set("setlist", "selected_song", self.playing) #no, don't user's regular game!
+            #Config.set("setlist", "selected_song", self.playing) #no, don't change user's regular game!
 
             if self.diff is not None:
                 self.engine.cmdDiff = int(self.diff)

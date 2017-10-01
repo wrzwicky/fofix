@@ -1014,8 +1014,8 @@ class GuitarScene(BandPlayBaseScene):
         self.missPausesAnim = self.engine.config.get("game", "miss_pauses_anim") #MFH
         self.starpowerMode = self.engine.config.get("game", "starpower_mode") #MFH
         self.useMidiSoloMarkers = False
-        self.logMarkerNotes = self.engine.config.get("game", "log_marker_notes")
-        self.logStarpowerMisses = self.engine.config.get("game", "log_starpower_misses")
+        self.logMarkerNotes = self.engine.config.get("log", "log_marker_notes")
+        self.logStarpowerMisses = self.engine.config.get("log", "log_starpower_misses")
         self.soloFrameMode = self.engine.config.get("game", "solo_frame")
         self.whammyEffect = self.engine.config.get("audio",  "whammy_effect")
         shaders.var["whammy"] = self.whammyEffect

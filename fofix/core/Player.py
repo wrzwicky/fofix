@@ -443,7 +443,7 @@ def pluginControls(activeControls):
 class Controls:
     def __init__(self):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("Controls class init (Player.py)...")
         self.controls = []
@@ -846,7 +846,7 @@ def setNewKeyMapping(engine, config, section, option, key):
 class Player(object):
     def __init__(self, name, number):
 
-        self.logClassInits = Config.get("game", "log_class_inits")
+        self.logClassInits = Config.get("log", "log_class_inits")
         if self.logClassInits == 1:
             log.debug("Player class init (Player.py)...")
 
