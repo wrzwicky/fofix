@@ -3407,6 +3407,13 @@ def removeSongOrderPrefixFromName(name):
 
 #stump
 def updateSongDatabase(engine):
+    ##WRZ #TODO better cleaning algo
+    # Bad code! This blindly erases all entries from all other folders.
+    # Doesn't seem to do anything else; song.__init__ updates the database,
+    # so all we need is a better cleaning algo.
+    return
+
+    ## ---
     from fofix.game import Dialogs  # putting it at the top causes circular-import-related problems...
     log.debug('Updating song cache.')
     _songDB.execute('UPDATE `songinfo` SET `seen` = 0')
