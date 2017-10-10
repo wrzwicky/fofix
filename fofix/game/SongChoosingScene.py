@@ -731,9 +731,9 @@ class SongChoosingScene(Scene):
         # NOTE if synch == True, songLoaded is called BEFORE return
         # self.songLoader =  ## assign to this if you can get synch=False to work
         self.engine.resource.load(self, None,
-                                  lambda: song.loadSong(self.engine, self.songName, playbackOnly = True, library = self.library), 
+                                  lambda: song.loadSong(self.engine, self.songName, playbackOnly = True, library = self.library),
                                   synch = True,
-                                  onLoad = self.songLoaded, 
+                                  onLoad = self.songLoaded,
                                   onCancel = self.songCanceled)
 
     def songCanceled(self):
@@ -797,6 +797,7 @@ class SongChoosingScene(Scene):
                                 self.updateSelection()
                                 break
         elif (c in Player.menuNo and not c in Player.cancels) or key == pygame.K_ESCAPE:
+            # Cancel button (stop song preview, go up a dir, quit selection menu)
             self.engine.data.cancelSound.play()
             if self.searching:
                 self.searchText = ""
@@ -814,16 +815,19 @@ class SongChoosingScene(Scene):
             if self.song:
                 self.song.fadeout(1000)
             if self.library != song.DEFAULT_LIBRARY and not self.tut and (self.listingMode == 0 or self.careerMode):
-                self.initialItem  = self.library
-                self.library      = os.path.dirname(self.library)
-                if self.library == os.path.join("..", self.engine.config.get("setlist", "base_library")):
+                if self.library == self.engine.config.get("setlist", "base_library"):
+                    # if at the top, quit the menu
                     self.quit()
                     return
+                else:
+                    # else go up a directory
+                    self.library = os.path.dirname(self.library)
                 self.selectedItem = None
                 self.loadLibrary()
             else:
                 self.quit()
         elif (c in Player.menuYes and not c in Player.starts) or key == pygame.K_RETURN:
+            # Start game with selected song.
             if self.searching:
                 self.searching = False
                 text = self.searchText.lower()
@@ -856,6 +860,7 @@ class SongChoosingScene(Scene):
                         if self.engine.world.songQueue.addSongCheckReady(self.songName, self.libraryName):
                             self.startGame()
         elif c in Player.menuYes and c in Player.starts:
+            # Start game some other way (undocumented; crashes)
             self.engine.data.acceptSound.play()
             if self.queueFormat == 0:
                 self.engine.world.songQueue.addSong(self.songName, self.libraryName)
