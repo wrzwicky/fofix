@@ -344,7 +344,7 @@ class SongInfo(object):
             except:
                 log.error("High scores lost! Can't parse scores_ext = %s" % scores_ext)
                 scores_ext = None
-            
+
         for difficulty in scores.keys():
             try:
                 difficulty = difficulties[difficulty]
@@ -420,7 +420,7 @@ class SongInfo(object):
         else:
             self.info.write(f)
             f.close()
-            
+
 #         if os.access(os.path.dirname(self.fileName), os.W_OK):
 #             f = open(self.fileName, "w")
 #             self.info.write(f)
@@ -2149,7 +2149,7 @@ class ScriptReader:
 
 class MidiReader(midi.MidiOutStream):
     """ Fully parse and load a MIDI file for gameplay. """
-    
+
     def __init__(self, song):
         midi.MidiOutStream.__init__(self)
         self.song = song
@@ -2338,7 +2338,7 @@ class MidiReader(midi.MidiOutStream):
         if self.partnumber:
             if text in parts[VOCAL_PART].trackName and parts[VOCAL_PART] not in self.song.parts:
                 self.useVocalTrack = False
-    
+
             self.guitarSoloIndex = 0
             self.guitarSoloActive = False
 
@@ -2742,7 +2742,7 @@ class MidiPartsDiffReader(midi.MidiOutStream):
     """ Partially parse a MIDI file for the parts & difficulty.
     To fully load the file, see MidiReader above.
     """
-    
+
     def __init__(self, forceGuitar = False):
         midi.MidiOutStream.__init__(self)
         self.parts = []
@@ -2826,7 +2826,7 @@ class MidiPartsDiffReader(midi.MidiOutStream):
 
     def note_on(self, channel, note, velocity):
         """ Note found, register its difficulty. """
-        
+
         if self.currentPart == -1:
             return
         if note == OD_MARKING_NOTE:
@@ -2850,7 +2850,7 @@ class MidiPartsDiffReader(midi.MidiOutStream):
                     self.difficulties[self.currentPart].append(diffObj)
         except KeyError:
             pass
-        
+
 def loadSong(engine, name, library = DEFAULT_LIBRARY, playbackOnly = False, notesOnly = False, part = [parts[GUITAR_PART]], practiceMode = False, practiceSpeed = .5):
 
     log.debug("loadSong function call (song.py)...")
@@ -2976,6 +2976,7 @@ def getAvailableLibraries(engine, library = DEFAULT_LIBRARY):
     libraries    = []
     libraryRoots = []
 
+    # Find sub-libraries (sub-directories that are NOT songs)
     for songRoot in set(songRoots):
         if not os.path.exists(songRoot):
             return libraries
@@ -2984,6 +2985,8 @@ def getAvailableLibraries(engine, library = DEFAULT_LIBRARY):
                 # filter the git folder
                 continue
             libraryRoot = os.path.join(songRoot, libraryRoot)
+
+            # If folder looks like it contains a song, then it's not a library -- skip it.
             if not os.path.isdir(libraryRoot):
                 continue
             if os.path.isfile(os.path.join(libraryRoot, "notes.mid")):
@@ -2991,19 +2994,11 @@ def getAvailableLibraries(engine, library = DEFAULT_LIBRARY):
             if os.path.isfile(os.path.join(libraryRoot, "notes-unedited.mid")):
                 continue
 
+            # No song found; it's a library!
+            #MFH - empty ("tiered" / organizational) folders are displayed, granting access to songs in subfolders...
             libName = library + os.path.join(libraryRoot.replace(songRoot, ""))
-
             libraries.append(LibraryInfo(libName, os.path.join(libraryRoot, "library.ini")))
-            continue # why were these here? we must filter out empty libraries - coolguy567
-                        #MFH - I'll tell you why -- so that empty ("tiered" / organizational) folders are displayed, granting access to songs in subfolders...
-
-            dirs = os.listdir(libraryRoot)
-            for name in dirs:
-                if os.path.isfile(os.path.join(libraryRoot, name, "song.ini")):
-                    if libraryRoot not in libraryRoots:
-                        libName = library + os.path.join(libraryRoot.replace(songRoot, ""))
-                        libraries.append(LibraryInfo(libName, os.path.join(libraryRoot, "library.ini")))
-                        libraryRoots.append(libraryRoot)
+            continue
 
     libraries.sort(lambda a, b: cmp(a.name.lower(), b.name.lower()))
 
