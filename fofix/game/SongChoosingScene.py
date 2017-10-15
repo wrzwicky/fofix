@@ -657,7 +657,8 @@ class SongChoosingScene(Scene):
 
     def checkQueueParts(self):
         #TODO: checkQueueParts
-        pass #parts = self.engine.world.songQueue.getParts()
+        #parts = self.engine.world.songQueue.getParts()
+        pass
 
 
     def freeResources(self):
@@ -1033,6 +1034,8 @@ class SongChoosingScene(Scene):
                     self.engine.theme.setlist.renderMiniLobby(self)
             # I am unsure how I want to handle this for now. Perhaps as dialogs, perhaps in SCS.
             elif self.mode == 1:
-                pass #self.renderSpeedSelect(visibility, topMost)
+                #self.renderSpeedSelect(visibility, topMost)  ##undefined
+                pass
             elif self.mode == 2:
-                pass #self.renderTimeSelect(visibility, topMost)
+                #self.renderTimeSelect(visibility, topMost)   ##undefined
+                pass
