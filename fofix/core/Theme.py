@@ -1129,6 +1129,7 @@ class Setlist:
 
                 score = _("Nil")
                 stars = 0
+                notesTotal= 0
                 name = ""
 
                 try:
@@ -1312,8 +1313,8 @@ class Setlist:
             if isinstance(item, song.SongInfo):
                 score = _("Nil")
                 stars = 0
-                name = ""
                 notesTotal = 0
+                name = ""
 
                 if not item.getLocked():
                     try:
@@ -1443,6 +1444,7 @@ class Setlist:
 
                 score = _("Nil")
                 stars = 0
+                notesTotal = 0
                 name = ""
 
                 try:
@@ -1709,8 +1711,8 @@ class Setlist:
             if isinstance(item, song.SongInfo):
                 score = _("Nil")
                 stars = 0
-                name = ""
                 notesTotal = 0
+                name = ""
 
                 if not item.getLocked():
                     try:
