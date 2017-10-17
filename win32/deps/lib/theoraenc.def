@@ -1,0 +1,16 @@
+LIBRARY libtheoraenc-1.dll
+EXPORTS
+    TH_VP31_HUFF_CODES
+    TH_VP31_QUANT_INFO
+    th_encode_alloc
+    th_encode_ctl
+    th_encode_flushheader
+    th_encode_free
+    th_encode_packetout
+    th_encode_ycbcr_in
+    theora_encode_YUVin
+    theora_encode_comment
+    theora_encode_header
+    theora_encode_init
+    theora_encode_packetout
+    theora_encode_tables

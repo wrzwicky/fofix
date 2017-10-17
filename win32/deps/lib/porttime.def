@@ -1,0 +1,7 @@
+LIBRARY porttime.dll
+EXPORTS
+    Pt_Sleep
+    Pt_Start
+    Pt_Started
+    Pt_Stop
+    Pt_Time

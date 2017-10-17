@@ -43,4 +43,5 @@ win32/*
 !win32/*.patch
 !win32/README.deppack.stub
 !win32/*.ico
+!win32/deps
 /dist/
