@@ -27,7 +27,6 @@ from collections import OrderedDict
 import binascii
 import cPickle  # Cerealizer and sqlite3 don't seem to like each other that much...
 import copy
-import glob
 import hashlib
 import os
 import random
@@ -48,6 +47,7 @@ from fofix.core.Language import _
 from fofix.core.Theme import *
 from fofix.core.Theme import hexToColor, colorToHex
 from fofix.game.song.songconstants import *
+from fofix.core import Utils
 
 
 #code for adding tracks, inside song.py:
@@ -2863,19 +2863,12 @@ def loadSong(engine, name, library = DEFAULT_LIBRARY, playbackOnly = False, note
     scriptFile = engine.resource.fileName(library, name, "script.txt")
 
     if not notesOnly:
-        # work around for glob and fnmatch not having a way to excape characters
-        # such as [ ] in filepaths... wtf glob! Python 3.3 added glob.escape to
-        # escape all characters that cause the problem. For now the change dir
-        # method is a cleaner work around than reimpplementing that function here.
-        orgpath = os.path.abspath('.')
-        os.chdir("{1}{0}{2}{0}".format(os.path.sep, library, name))
-        songOggFiles = glob.glob('*.ogg')
-
-        os.chdir(orgpath)
+        songOggFiles = Utils.globfile(os.path.join(library,name), "*.ogg")
 
         # All song file entries are going to be lists because there is a possibilty
         # for the drums of having multiple tracks. This will make things simpler.
-        for f in songOggFiles:
+        for p in songOggFiles:
+            f = os.path.basename(p)
             instName = f.split('.')[0].lower()
 
             # Check for numbered audio tracks
@@ -2883,7 +2876,6 @@ def loadSong(engine, name, library = DEFAULT_LIBRARY, playbackOnly = False, note
             if isNumbered:
                 # take the part of the name before the underscore for the name.
                 instName = instName.split('_')[0]
-
 
             # get the number of additional tracks
             instReNumbered = re.compile('^{0}_\d'.format(instName))
@@ -2896,7 +2888,7 @@ def loadSong(engine, name, library = DEFAULT_LIBRARY, playbackOnly = False, note
             if instName not in songFiles:
                 songFiles[instName] = []
 
-            songFiles[instName].append(engine.resource.fileName(library, name, f))
+            songFiles[instName].append(engine.resource.fileName(p))
 
         if 'song' not in songFiles:
             songFiles['song'] = songFiles['guitar']

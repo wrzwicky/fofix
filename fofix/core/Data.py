@@ -24,7 +24,6 @@
 #####################################################################
 
 import os
-import glob
 import random
 
 from fretwork import log
@@ -36,6 +35,8 @@ from fofix.core.Image import ImgDrawing
 from fofix.core import Config
 from fofix.core import Version
 from fofix.core import Player
+from fofix.core import Utils
+
 
 # these constants define a few customized letters in the default font
 #MFH - with the new simplified Font.py, no more custom glyphs... let's do a simple replacement here for now...
@@ -326,13 +327,13 @@ class Data(object):
 
     def getSoundObjectList(self, soundPath, soundPrefix, numSounds, soundExtension = ".ogg"):   #MFH
         log.debug("{0}1{2} - {0}{1}{2} found in {3}".format(soundPrefix, numSounds, soundExtension, soundPath))
-        
+
         sounds = []
         for i in xrange(1, numSounds+1):
             filePath = os.path.join(soundPath, "%s%d%s" % (soundPrefix, i, soundExtension) )
             soundObject = Sound(self.resource.fileName(filePath))
             sounds.append(soundObject)
-            
+
         return sounds
 
     def loadBackSounds(self):   #MFH - adding optional support for random choice between two back sounds
@@ -419,18 +420,11 @@ class Data(object):
                 else:
                     return True
             else:
-                #find extension
+                #strip extension, look for anything with same name
                 fileName1 = os.path.splitext(fileName1)[0]
+                path2,name2 = os.path.split(fileName1)
                 try:
-                    # glob parses [] but those are legal chars on Windows, so we must escape them.
-                    # it must be done like this so replacements are not mangled by other replacements.
-                    replacements = {
-                        "[": "[[]",
-                        "]": "[]]"
-                    }
-                    fileName1 = "".join([replacements.get(c,c) for c in fileName1])
-                    
-                    files = glob.glob('%s.*' % fileName1)  ##WRZ crash if [] in path
+                    files = Utils.globfile(path2, name2+".*")
                     if openImage:
                         for i in range(len(files)):
                             try:
@@ -443,7 +437,7 @@ class Data(object):
                 except:
                     # above failed, pass thru to log&return below
                     pass
-                
+
         #image not found
         if self.logImageNotFound:
             log.debug("Image not found: %s" % fileName)

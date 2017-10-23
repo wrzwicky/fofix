@@ -22,18 +22,20 @@
 
 import gettext
 import os
-import glob
 
 from fretwork import log
 from fretwork.unicode import unicodify
 
 from fofix.core import Version
 from fofix.core import Config
+from fofix.core import Utils
 
 Config.define("game", "language", str, "")
 
 def getAvailableLanguages():
-    return [os.path.basename(l).capitalize().replace(".mo", "").replace("_", " ") for l in glob.glob(os.path.join(Version.dataPath(), "translations", "*.mo"))]
+    tpath = os.path.join(Version.dataPath(), "translations")
+    return [os.path.basename(l).capitalize().replace(".mo", "").replace("_", " ")
+            for l in Utils.globfile(tpath, "*.mo")]
 
 def dummyTranslator(string):
     return unicodify(string)
