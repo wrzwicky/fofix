@@ -54,6 +54,7 @@ pyvenv.cfg
 !/data/themes/Uberlight
 
 /win32/
+/win32/deps/*
 !/win32/*.sh
 !/win32/*.py
 !/win32/*.patch
