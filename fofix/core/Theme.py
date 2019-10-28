@@ -119,6 +119,11 @@ class Theme(Task):
             log.error("Attempted to load theme variable %s - no default found." % attr)
 
     def __init__(self, path, name):
+        """
+        :param path: Unused, retained for compatability.
+        :param name: Name of folder in our 'themes' folder that we will load.
+        """
+        
         self.name = name
         self.path = path
 
